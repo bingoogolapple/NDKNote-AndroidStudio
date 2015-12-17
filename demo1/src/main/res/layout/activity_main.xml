@@ -2,9 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/MatchMatch.Vertical">
 
+    <TextView
+        android:id="@+id/tv_main_result"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:text="结果"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
     <Button
         style="@style/DemoBtn"
-        android:onClick="test"
-        android:text="test" />
+        android:onClick="getABIFromC"
+        android:text="getABIFromC" />
 
+    <Button
+        style="@style/DemoBtn"
+        android:onClick="add"
+        android:text="add" />
+
+    <Button
+        style="@style/DemoBtn"
+        android:onClick="sayHello"
+        android:text="sayHello" />
+
+    <Button
+        style="@style/DemoBtn"
+        android:onClick="mapArr"
+        android:text="mapArr" />
 </LinearLayout>

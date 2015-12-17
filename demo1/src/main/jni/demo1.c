@@ -1,9 +1,14 @@
-#include <string.h>
 #include <jni.h>
+#include <android/log.h>
+#include <string.h>
+
+#define LOG_TAG "NDKNoteCTAG"
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 
 JNIEXPORT jstring JNICALL
-Java_cn_bingoogolapple_ndknote_demo1_activity_MainActivity_helloFromC(JNIEnv *env,
-                                                                      jobject instance) {
+Java_cn_bingoogolapple_ndknote_demo1_activity_MainActivity_getABIStringFromC(JNIEnv *env,
+                                                                             jobject obj) {
+
 #if defined(__arm__)
 #if defined(__ARM_ARCH_7A__)
 #if defined(__ARM_NEON__)
@@ -35,6 +40,58 @@ Java_cn_bingoogolapple_ndknote_demo1_activity_MainActivity_helloFromC(JNIEnv *en
 #else
 #define ABI "unknown"
 #endif
-    
-    return (*env)->NewStringUTF(env, "Hello from JNI !  Compiled with ABI " ABI ".");
+
+    char *result = "Compiled with ABI " ABI ".";
+
+    LOGI(result);
+
+    return (*env)->NewStringUTF(env, result);
+}
+
+JNIEXPORT jint JNICALL
+Java_cn_bingoogolapple_ndknote_demo1_activity_MainActivity_addAToB(JNIEnv *env, jobject instance,
+                                                                   jint a, jint b) {
+    jint result = a + b;
+    LOGI("%d+%d=%d", a, b, result);
+    return a + b;
+}
+
+JNIEXPORT jstring JNICALL
+Java_cn_bingoogolapple_ndknote_demo1_activity_MainActivity_sayHelloFromC(JNIEnv *env,
+                                                                         jobject obj,
+                                                                         jstring name) {
+    const char *result = (*env)->GetStringUTFChars(env, name, 0);
+
+    // c语言中的字符串 都是以'/0' 作为结尾
+    char arr[7] = {' ', 'h', 'e', 'l', 'l', 'o', '\0'};
+    strcat(result, arr);
+
+    LOGI(result);
+
+    (*env)->ReleaseStringUTFChars(env, name, result);
+
+    return (*env)->NewStringUTF(env, result);
+}
+
+JNIEXPORT jintArray JNICALL
+Java_cn_bingoogolapple_ndknote_demo1_activity_MainActivity_mapArrByC(JNIEnv *env, jobject instance,
+                                                                     jintArray arr) {
+    jint *intArr = (*env)->GetIntArrayElements(env, arr, NULL);
+
+    int len = (*env)->GetArrayLength(env, arr);
+    LOGI("数组长度等于%d",len);
+
+    // c99 循环的变量的初始化条件要在for循环的外面
+    int i = 0;
+    for(;i<len;i++){
+        LOGI("转换前[%d]=%d", i, intArr[i]);
+
+        //*(intarr+i) += 10;
+
+        intArr[i] += 10;
+    }
+
+    (*env)->ReleaseIntArrayElements(env, arr, intArr, 0);
+
+    return arr;
 }

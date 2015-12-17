@@ -11,11 +11,12 @@ model {
             versionCode = VERSION_CODE as int
             versionName = VERSION_NAME
         }
+
     }
 
     compileOptions.with {
-        sourceCompatibility=JavaVersion.VERSION_1_7
-        targetCompatibility=JavaVersion.VERSION_1_7
+        sourceCompatibility=JavaVersion.VERSION_1_8
+        targetCompatibility=JavaVersion.VERSION_1_8
     }
 
     /*
@@ -23,18 +24,15 @@ model {
      */
     android.ndk {
         moduleName = "demo1"
-        /*
-         * Other ndk flags configurable here are
-         * cppFlags.add("-fno-rtti")
-         * cppFlags.add("-fno-exceptions")
-         * ldLibs.addAll(["android", "log"])
-         * stl       = "system"
-         */
+        ldLibs.addAll(["log"])
     }
     android.buildTypes {
         release {
             minifyEnabled = false
             proguardFiles.add(file('proguard-rules.txt'))
+        }
+        debug {
+            debuggable = true
         }
     }
     android.productFlavors {
