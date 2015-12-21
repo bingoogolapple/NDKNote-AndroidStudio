@@ -27,4 +27,8 @@ public class MainActivity extends AppCompatActivity {
     public void javaInvokeC(View v) {
         startActivity(new Intent(this, JavaInvokeCActivity.class));
     }
+
+    public void cInvokeJava(View v) {
+        startActivity(new Intent(this, CInvokeJavaActivity.class));
+    }
 }

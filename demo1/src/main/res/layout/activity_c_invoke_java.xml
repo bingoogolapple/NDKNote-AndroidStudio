@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MatchMatch.Vertical">
+
+    <Button
+        style="@style/DemoBtn"
+        android:onClick="callHelloFromJava"
+        android:text="callHelloFromJava" />
+
+    <Button
+        style="@style/DemoBtn"
+        android:onClick="callAdd"
+        android:text="callAdd" />
+
+    <Button
+        style="@style/DemoBtn"
+        android:onClick="callPrintStaticString"
+        android:text="callPrintStaticString" />
+</LinearLayout>

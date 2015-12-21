@@ -21,6 +21,11 @@
             android:name=".activity.JavaInvokeCActivity"
             android:label="JavaInvokeC"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.CInvokeJavaActivity"
+            android:label="CInvokeJava"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
