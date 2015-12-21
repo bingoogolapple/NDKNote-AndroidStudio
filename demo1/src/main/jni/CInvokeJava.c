@@ -53,3 +53,39 @@ Java_cn_bingoogolapple_ndknote_demo1_jni_CInvokeJava_callPrintStaticString(JNIEn
     }
     (*env)->CallStaticVoidMethod(env, clazz, methodId, (*env)->NewStringUTF(env, "静态 王浩"));
 }
+
+JNIEXPORT void JNICALL
+Java_cn_bingoogolapple_ndknote_demo1_activity_CInvokeJavaActivity_login__Ljava_lang_String_2Ljava_lang_String_2(
+        JNIEnv *env, jobject obj, jstring username_, jstring password_) {
+    const char *username = (*env)->GetStringUTFChars(env, username_, 0);
+    const char *password = (*env)->GetStringUTFChars(env, password_, 0);
+
+    jclass clazz = (*env)->FindClass(env, "cn/bingoogolapple/ndknote/demo1/activity/CInvokeJavaActivity");
+    if (clazz == 0) {
+        LOGE("find class CInvokeJavaActivity error");
+        return;
+    }
+    jmethodID showProgressDialogMethodId = (*env)->GetMethodID(env, clazz, "showProgressDialog", "(Ljava/lang/String;)V");
+    if (showProgressDialogMethodId == 0) {
+        LOGE("find method showProgressDialog error");
+        return;
+    }
+    jmethodID dismissProgressDialogMethodId = (*env)->GetMethodID(env, clazz, "dismissProgressDialog", "()V");
+    if (dismissProgressDialogMethodId == 0) {
+        LOGE("find method dismissProgressDialog error");
+        return;
+    }
+
+    (*env)->CallVoidMethod(env, obj, showProgressDialogMethodId, (*env)->NewStringUTF(env, "正在加密用户名和密码"));
+
+    sleep(2);
+
+    (*env)->CallVoidMethod(env, obj, showProgressDialogMethodId, (*env)->NewStringUTF(env, "正在登陆"));
+
+    sleep(2);
+
+    (*env)->CallVoidMethod(env, obj, dismissProgressDialogMethodId);
+
+    (*env)->ReleaseStringUTFChars(env, username_, username);
+    (*env)->ReleaseStringUTFChars(env, password_, password);
+}

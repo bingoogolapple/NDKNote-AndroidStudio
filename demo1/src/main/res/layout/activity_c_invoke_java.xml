@@ -16,4 +16,9 @@
         style="@style/DemoBtn"
         android:onClick="callPrintStaticString"
         android:text="callPrintStaticString" />
+
+    <Button
+        style="@style/DemoBtn"
+        android:onClick="login"
+        android:text="login" />
 </LinearLayout>
